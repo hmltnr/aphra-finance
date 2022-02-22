@@ -1,0 +1,173 @@
+%%%%%%%%%%%%%%%%%%%%
+% custom definitions
+%%%%%%%%%%%%%%%%%%%%
+
+% additional packages
+\usepackage{setspace}
+\usepackage{afterpage}
+\usepackage{xcolor}
+
+% increase spacing to 1 1/2
+\onehalfspacing
+
+% no space on start of paragraph
+\setlength{\parindent}{0em}
+
+% Tikz style definitions
+\tikzstyle{decision} = [diamond, draw, fill=blue!20, text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, text width=5em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{aufpunkt} = [rectangle, draw, fill=gray!20, text width=5em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm, minimum height=3em]
+
+% solidity code highlighting in listings
+\input{tex/solidity-highlighting}
+
+% New command definitions
+% If you need help: https://www.overleaf.com/learn/latex/Commands
+\newcommand{\vader}{\textsc{vader}\,}
+\newcommand{\usdv}{\textsc{usdv}\,}
+\newcommand{\aphra}{\textsc{aphra}\,}
+\newcommand{\frax}{\textsc{frax}\,}
+\newcommand{\fxs}{\textsc{fxs}\,}
+\newcommand{\bean}{\textsc{bean}\,}
+\newcommand{\eth}{\textsc{eth}\,}
+\newcommand{\cvx}{\textsc{cvx}\,}
+\newcommand{\crv}{\textsc{crv}\,}
+\newcommand{\rpl}{\textsc{rpl}\,}
+\newcommand{\yfi}{\textsc{yfi}\,}
+
+% Custom colors
+% From: http://latexcolor.com/
+\definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}
+\definecolor{amber}{rgb}{1.0, 0.75, 0.0}
+\definecolor{amaranth}{rgb}{0.9, 0.17, 0.31}
+\definecolor{darkcyan}{rgb}{0.0, 0.55, 0.55}
+\definecolor{vegasgold}{rgb}{0.77, 0.7, 0.35}
+\definecolor{vanilla}{rgb}{0.95, 0.9, 0.67}
+\definecolor{unmellowyellow}{rgb}{1.0, 1.0, 0.4}
+\definecolor{ufogreen}{rgb}{0.24, 0.82, 0.44}
+\definecolor{ticklemepink}{rgb}{0.99, 0.54, 0.67}
+
+% Tokenomics pie chart
+\usetikzlibrary{fadings}
+\tikzset{pics/wedge/.style={code={%
+  \tikzset{wedge/.cd,#1}
+  \def\kvw##1{\pgfkeysvalueof{/tikz/wedge/##1}}
+  \pgfmathtruncatemacro{\itest}{3*(1+sign(sin(\kvw{alpha})))+1+sign(sin(\kvw{beta}))}
+  \ifcase\itest
+    %0: alpha>180,beta>180
+       \draw[fill=\kvw{color},very thin]
+                       (\kvw{alpha}:\kvw{radius}) 
+                       -- ++(0,-\kvw{h}) arc(\kvw{alpha}:\kvw{beta}:\kvw{radius}) 
+                       -- ++(0,\kvw{h})  arc(\kvw{beta}:\kvw{alpha}:\kvw{radius});
+   \or
+    %1: alpha>180,beta=0,180                       
+       \draw[fill=\kvw{color},very thin]
+                       (\kvw{alpha}:\kvw{radius}) 
+                       -- ++(0,-\kvw{h}) arc(\kvw{alpha}:\kvw{beta}:\kvw{radius}) 
+                       -- ++(0,\kvw{h})  arc(\kvw{beta}:\kvw{alpha}:\kvw{radius});
+   \or
+    %2: alpha>180,beta<180                     
+       \draw[fill=\kvw{color},very thin]
+                       (\kvw{alpha}:\kvw{radius}) 
+                       -- ++(0,-\kvw{h}) arc(\kvw{alpha}:360:\kvw{radius}) 
+                       -- ++(0,\kvw{h})  arc(360:\kvw{alpha}:\kvw{radius});
+   \or
+    %3: alpha=0,180,beta>180                       
+       \draw[fill=\kvw{color},very thin]
+                       (180:\kvw{radius}) 
+                       -- ++(0,-\kvw{h}) arc(180:\kvw{beta}:\kvw{radius}) 
+                       -- ++(0,\kvw{h})  arc(\kvw{beta}:180:\kvw{radius});
+   \or
+    %4: alpha=0,180,beta=0,180                     
+       \draw[fill=\kvw{color},very thin]
+                       (180:\kvw{radius}) 
+                       -- ++(0,-\kvw{h}) arc(180:0:\kvw{radius}) 
+                       -- ++(0,\kvw{h})  arc(0:180:\kvw{radius});
+   \or
+    %5: alpha=0,180,beta=<180                      
+   \or
+    %6: alpha<180,beta=>180                    
+       \draw[fill=\kvw{color},very thin]
+                       (180:\kvw{radius}) 
+                       -- ++(0,-\kvw{h}) arc(180:\kvw{beta}:\kvw{radius}) 
+                       -- ++(0,\kvw{h})  arc(\kvw{beta}:180:\kvw{radius});
+   \or
+    %7: alpha<180,beta=0,180
+    \pgfmathtruncatemacro{\ibeta}{sign(cos(\kvw{beta}))}
+    \ifnum\ibeta=1
+        \draw[fill=\kvw{color},very thin] 
+                        (180:\kvw{radius}) 
+                        -- ++(0,-\kvw{h}) arc(180:360:\kvw{radius}) 
+                        -- ++(0,\kvw{h})  arc(360:180:\kvw{radius});
+    \fi
+   \or
+    %8: alpha<180,beta<180
+    \pgfmathtruncatemacro{\ibeta}{sign(sin(\kvw{alpha})-sin(\kvw{beta}))}
+    \ifnum\ibeta=1
+       \draw[fill=\kvw{color},very thin]
+                        (180:\kvw{radius}) 
+                        -- ++(0,-\kvw{h}) arc(180:360:\kvw{radius}) 
+                        -- ++(0,\kvw{h})  arc(360:180:\kvw{radius});
+    \fi
+  \fi
+  \path[fill=\kvw{color},draw=black] (0,0)--
+  (\kvw{alpha}:\kvw{radius})  arc(\kvw{alpha}:\kvw{beta}:\kvw{radius})
+                                     --cycle;
+}},
+wedge/.cd,alpha/.initial=0,beta/.initial=0,%beta > alpha!
+color/.initial=blue,
+mix color/.initial=gray,radius/.initial=3cm,h/.initial=1cm,
+/tikz/.cd,
+pics/3d pie chart/.style={code={
+  \def\kvw##1{\pgfkeysvalueof{/tikz/3d pie chart/##1}}
+  \begin{scope}[yscale=\kvw{aspect},transform shape]
+    \path[preaction={fill=black,opacity=.8,
+           path fading=circle with fuzzy edge 20 percent}] 
+           (0,-\kvw{h}-\kvw{radius}/4.5) 
+           circle[radius=1.05*\kvw{radius}];
+    \pgfmathsetmacro{\mysum}{0}      
+    \foreach \XX/\ZZ  in {#1}  
+    {\pgfmathsetmacro{\mysum}{\mysum+\XX}
+     \xdef\mysum{\mysum}}
+    \pgfmathsetmacro{\myangle}{\kvw{alpha0}}
+    \foreach \XX/\ZZ [count=\YY starting from 0,remember=\myangle as \myangle] in {#1} 
+    {\pgfmathsetmacro{\myangleB}{\myangle+\XX*(360/\mysum)}
+     \pgfmathsetmacro{\mycolor}{{\kvw{colors}}[\YY]}
+     \pic{wedge={alpha=\myangle,beta=\myangleB,color=\mycolor,
+        radius/.expanded=\kvw{radius},
+        h/.expanded=\kvw{h}
+        }};
+     \fill (\myangle/2+\myangleB/2:\kvw{radius}*\kvw{eccentricity})
+      coordinate (\kvw{cname}-\YY) circle[radius=2pt];
+     \pgfmathtruncatemacro{\mysign}{sign(cos(\myangle/2+\myangleB/2))} 
+     \draw[thick] (\kvw{cname}-\YY)  -- 
+      ++(\myangle/2+\myangleB/2:\kvw{armA}) -- ++ 
+      (\mysign*3,0)
+      \ifnum\mysign<0
+        node[above right,transform shape=false]{\ZZ}
+        node[below right,transform shape=false]{\XX\%}
+      \else
+        node[above left,transform shape=false]{\ZZ}
+        node[below left,transform shape=false]{\XX\%}
+      \fi;    
+     \pgfmathsetmacro{\myangle}{\myangleB}
+    }
+    \shade[left color=black,middle color=white,right color=gray,opacity=0.4]
+                          (180:\kvw{radius}) 
+                          -- ++(0,-\kvw{h}) arc(180:360:\kvw{radius}) 
+                          -- ++(0,\kvw{h})  arc(360:180:\kvw{radius});
+  \end{scope}                       
+}},
+3d pie chart/.cd,
+colors/.initial={"blue","red","orange","green","yellow"},
+radius/.initial=3cm,h/.initial=1cm,alpha0/.initial=0,
+aspect/.initial=0.6,eccentricity/.initial=0.7,cname/.initial=c,
+armA/.initial=2cm,armB/.initial=3cm
+}
+
+% Timeline
+\usepackage{tabularx}
+\newcommand\ytl[3]{
+\parbox[b]{8em}{\hfill{\color{gray}\bfseries\sffamily #1}~~~}\makebox[0pt][c]{}\vrule\quad \parbox[c]{4.5cm}{\vspace{7pt}\color{airforceblue}\raggedright\sffamily \phantom{0} \textbf{#2} \quad \quad \textbf{#3} \\[7pt]}\\[-3pt]}
+

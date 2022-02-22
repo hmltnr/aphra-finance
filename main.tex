@@ -1,0 +1,92 @@
+\documentclass[runningheads]{llncs}
+%
+\usepackage{amsmath}
+\usepackage{booktabs} 
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage[all]{nowidow}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{er,positioning}
+\usepackage{multicol}
+\usepackage{algpseudocode,algorithm,algorithmicx}
+\usepackage{minted}
+\usepackage{hyperref}
+\usepackage[inline]{enumitem}
+
+\newcommand{\card}[1]{\left\vert{#1}\right\vert}
+\newcommand*\Let[2]{\State #1 $\gets$ #2}
+\definecolor{blue}{HTML}{1F77B4}
+\definecolor{orange}{HTML}{FF7F0E}
+\definecolor{green}{HTML}{2CA02C}
+
+\pgfplotsset{compat=1.14}
+
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.15}
+\renewcommand{\floatpagefraction}{0.8}
+\renewcommand{\textfraction}{0.1}
+\setlength{\floatsep}{3pt plus 1pt minus 1pt}
+\setlength{\textfloatsep}{3pt plus 1pt minus 1pt}
+\setlength{\intextsep}{3pt plus 1pt minus 1pt}
+\setlength{\abovecaptionskip}{2pt plus 1pt minus 1pt}
+
+% Define config file and import
+\input{tex/config}
+
+\begin{document}
+% first page in black rest without color
+\pagecolor{black}\afterpage{\nopagecolor}
+%
+\title{\textcolor{white}{\bf Aphra-Cashflow Generation \linebreak through Peg Stability}}
+%
+\titlerunning{}
+%
+\author{\textcolor{white}{\bf AphraFinance \\ Version 1.0}}
+%
+\date{}
+\institute{\textcolor{white}{\bf \email{dao@aphra.finance}}}
+%
+% position teaser graphic above title
+\vbox{
+    \centering
+    \includegraphics[height=12em]{figures/aphra_transparent.png}
+    \vskip-1.5em
+    \maketitle
+}
+% left rest of title page blank
+\newpage
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Content of the white paper
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% All TeX-files are in "tex/".
+% Figures are stored in "figures/".
+%
+% Config defined in "config.tex":
+% -> import new packages in there
+% -> create new commands in there 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Import content into manuscript
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% import abstract
+\input{tex/abstract}
+
+% "introduction.tex"
+\input{tex/introduction}
+
+% "aphrafinance.tex"
+\input{tex/aphrafinance}
+
+\newpage
+% Citations style and set up
+\bibliographystyle{ieeetr}
+\bibliography{citations}
+
+\end{document}
