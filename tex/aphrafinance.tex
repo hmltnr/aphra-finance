@@ -21,14 +21,16 @@ Next, we describe the structure of the \aphra engine and the underlying continuo
     \label{fig:ae-flow}
 \end{figure}
 
-\aphra vaults allow the end-user to deposit liquidity within expert yield aggregator strategies -- more details are given in section\,\ref{subsec:aphra-yield-farming}.
-Another stake vector is provided by means of white-listed crypto assets, where the end-user can provide liquidity through crypto assets that are used within yield farming strategies like peg arbitrage.
-The end-user obtains 20\% of the generated revenue. and is entitled to obtain ve\aphra from weekly inflation.
-The usage is measured with gauges, which show how much an end-user is providing in liquidity.
-Each gauge is associated with a weight that determines how much of the inflation will be received by this liquidity gauge.
-All weights add up to unity and we calculate the inflation each week as discussed in section\,\ref{subsec:ve-mechanism} until the unlock vote passes (see section\,\ref{subsec:dao-activation}).\\[-1em]
+\aphra vaults (av) allow the end-user to deposit liquidity in form of white-listed crypto assets that are used within expert yield farming strategies like peg arbitrage -- more details are given in section\,\ref{subsec:aphra-yield-farming}.
+The end-user obtains 20\% of the generated revenue.
+By providing liquidity within \aphra vaults, the end-user obtains av-tokens that can be further staked into \aphra liquidity gauges.
+This entitles the end-user to obtain ve\aphra from weekly inflation.
+Each \aphra gauge is associated with a weight that determines how much of the inflation will be received by this liquidity gauge.
+All weights add up to unity and we calculate the inflation each week as discussed in section\,\ref{subsec:ve-mechanism}.
+Until the DAO unlocks (see section\,\ref{subsec:dao-activation}), weekly inflation is fixed to 625,000 ve\aphra with rolling locks of eight weeks.\\[-1em]
 
 Inflation is created by the \aphra minter and paid out to the liquidity gauges according to the pre-voted weights by the veDistributor.
+Note that during the initial phase of the ecosystem, the \aphra team -- who has all the voting power -- votes equally for all liquidity gauge weights to guarantee a fair inflation distribution. 
 After the DAO activation, the inflation rate is dynamically defined with respect to ve-locked circulating supply (see section\,\ref{subsec:ve-mechanism}).
 ve\aphra holders decide through voting how the gauges inflation weights should be adjusted.
 Voting rights can also be acquired, which means that ve\aphra holders can pass on their voting rights to others by receiving financial incentives through voting bribes.
@@ -100,7 +102,6 @@ We present next how \aphra yield farming strategies help the end-user to generat
 
 \subsection{Aphra yield farming}
 \label{subsec:aphra-yield-farming}
-% https://blog.apy.vision/defi-vaults/
 In the DeFi space, there are many projects that give out rewards to their end-users for interacting with their platforms.
 One example is staking tokens on a platform, which in turn can increase the total value locked for that project.
 Typically, liquidity pool tokens are used for this purpose, as many projects issue rewards in return for users providing the liquidity needed to run the platform, which is commonly referred to as yield farming.
